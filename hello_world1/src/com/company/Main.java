@@ -6,5 +6,7 @@ public class Main {
 	// write your code here
 
         System.out.println("Hello World");
+        System.out.println("Hire Me");
+        System.out.println("Please");
     }
 }
