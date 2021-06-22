@@ -5,8 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Humans {
-    public ArrayList<String> inventory;
-    ArrayList<ArrayList<Integer>> location = new ArrayList<>();
+    private ArrayList<String> inventory = new ArrayList<>();
     private int health;
     private int str;
     private int def;
@@ -35,29 +34,6 @@ public class Humans {
         return null;
     }
 
-    public String userMovement(){
-        String choice;
-
-        try{
-            System.out.println("What direction would you like to move?");
-            Land.compassRose();
-
-            choice = scanner.nextLine();
-
-            if (choice.equals("N") || choice.equals("E") || choice.equals("S") || choice.equals("W")){
-                return choice;
-            }
-            System.out.println("Invalid Choice");
-            userMovement();
-
-        } catch (Exception e){
-            System.out.println("Invalid Choice");
-            userMovement();
-        }
-        return "";
-    }
-
-
     public String getName() {
         return name;
     }
@@ -66,11 +42,60 @@ public class Humans {
         return health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public int getStr() {
         return str;
     }
 
+    public void setStr(int str) {this.str = str;}
+
     public int getDef() {
         return def;
+    }
+
+    public void setDef(int def) {this.def = def;}
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {this.speed = speed;}
+
+    public void setInventory(String loot) {
+        inventory.add(loot);
+        if (loot.equals("Potion")){
+            setHealth(getHealth() + 10);
+        }
+        else if(loot.equals("+1 Sword")){
+            setStr(getStr()+1);
+        }
+        else if(loot.equals("+1 Shield")){
+            setDef(getDef()+1);
+        }
+        else if(loot.equals("+1 Shoes")){
+            setSpeed(getSpeed()+1);
+        }
+    }
+
+    public void showInventory(){
+        System.out.println("|-Inventory-|");
+        for(int c = 0; c < inventory.size(); c++){
+            System.out.println("-" + inventory.get(c));
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Humans{" +
+                "inventory=" + inventory +
+                ", health=" + health +
+                ", str=" + str +
+                ", def=" + def +
+                ", speed=" + speed +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
