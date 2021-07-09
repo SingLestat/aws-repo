@@ -9,7 +9,6 @@ public class Goblins {
     private int def;
     private String name;
     private String loot = "";
-    ArrayList<ArrayList<Integer>> location = new ArrayList<>();
 
     Random rand = new Random();
 

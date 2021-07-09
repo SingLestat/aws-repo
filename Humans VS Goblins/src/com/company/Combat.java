@@ -13,9 +13,9 @@ public class Combat {
             int goblinTurn = random.nextInt(10);
 
             if (playerTurn > goblinTurn) {
-                goblin.setHealth(goblin.getHealth() - (human.getStr() - goblin.getDef()));
+                goblin.setHealth(goblin.getHealth() - Math.abs(human.getStr() - goblin.getDef()));
             } else {
-                human.setHealth(human.getHealth() - (goblin.getStr() - human.getDef()));
+                human.setHealth(human.getHealth() - Math.abs(goblin.getStr() - human.getDef()));
                 deathCheck(human, goblin);
             }
         }

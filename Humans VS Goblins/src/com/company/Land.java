@@ -86,6 +86,7 @@ public class Land{
 
             if(goblin.getLoot()!=""){
                 human.setInventory(goblin.getLoot());
+                human.showInventory();
             }
 
         }else if(Loc.equals(" T")){
@@ -226,7 +227,6 @@ public class Land{
         }catch(IndexOutOfBoundsException exception){
 
         }
-
         return player;
     }
 

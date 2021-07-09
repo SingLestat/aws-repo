@@ -17,7 +17,7 @@ public class Humans {
 
     Humans(String name){
         this.name = name;
-        health = 100;
+        health = 250;
         str = 5;
         def = 5;
         speed = 0;
