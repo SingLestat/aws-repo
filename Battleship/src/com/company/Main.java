@@ -12,12 +12,12 @@ public class Main {
 		Players playerOne = new Players();
 		playerOne.setShips(playerOne, playerOneBoard);
 
-		//System.out.println("Player Two:");
+		System.out.println("Player Two:");
 		Players playerTwo = new Players();
-		//playerOne.setShips(playerTwo, playerTwoBoard);
+		playerOne.setShips(playerTwo, playerTwoBoard);
 
 		while (true){
-			//playerTwoBoard.setBoard(playerOne.battle(playerOne, playerTwoBoard));
+			playerTwoBoard.setBoard(playerOne.battle(playerOne, playerTwoBoard));
 			playerOneBoard.setBoard(playerTwo.battle(playerTwo, playerOneBoard));
 		}
     }

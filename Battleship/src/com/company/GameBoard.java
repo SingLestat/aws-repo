@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.Scanner;
 
 public class GameBoard{
@@ -29,60 +28,74 @@ public class GameBoard{
             System.out.println();
         }
     }
-
+//setting ship
     public Object setShip(GameBoard gameBoard,Ship ship){
         String placement;
-        int[] coordinates;
+        int[] coordinates = {0,0};
+        GameBoard tempBoard = gameBoard;
 
         System.out.println("Enter the coordinates for the " + ship.getName() + ":");
-        coordinates = getCoordinates();
+        coordinates = setShipCoordinates();
         placement = getPlacement();
 
         try{
             if(placement.equals("h")){
-                for(int col=coordinates[1]; col < ship.getSize()+1; col++){
-                    if(gameBoard.board[coordinates[0]][col] != "~ "){
-                        System.out.println("Invalid Choice");
+                for(int col=coordinates[1]; col < ship.getSize()+coordinates[1]; col++){
+                    if(tempBoard.board[coordinates[0]][col] != "~ "){
+                        System.out.println("Invalid Choice h");
                         setShip(gameBoard, ship);
+                        break;
+                    }else{
+                        tempBoard.board[coordinates[0]][col]=ship.getShipChar();
                     }
-                    gameBoard.board[coordinates[0]][col] = ship.getShipChar();
                 }
             }
-            else if(placement.equals("v")){
-                for(int row=coordinates[0]; row < ship.getSize()+1; row++){
-                    if(gameBoard.board[row][coordinates[1]] != "~ "){
-                        System.out.println("Invalid Choice");
+            if(placement.equals("v")){
+                for(int row=coordinates[0]; row < ship.getSize()+coordinates[0]; row++){
+                    if(tempBoard.board[row][coordinates[1]] != "~ "){
+                        System.out.println("Invalid Choice v");
                         setShip(gameBoard, ship);
+                        break;
+                    }else{
+                        tempBoard.board[row][coordinates[1]]=ship.getShipChar();
                     }
-                    gameBoard.board[row][coordinates[1]] = ship.getShipChar();
                 }
             }
         }catch(Exception e){
-            System.out.println(e);
-            System.out.println("Invalid Choice");
+            System.out.println("Invalid Choice" + e);
             setShip(gameBoard, ship);
         }
 
-        return gameBoard;
+        return tempBoard;
     }
 
-    private int[] getCoordinates(){
+    private int[] setShipCoordinates(){
         int[] coordinates=new int[2];
 
         try{
             System.out.println("Please enter x coordinate:");
-            coordinates[0] =scanner.nextInt();
+            if(scanner.hasNextInt()){
+                coordinates[1]=scanner.nextInt();
+            }
+            else{
+                setShipCoordinates();
+            }
             System.out.println("Please enter y coordinate:");
-            coordinates[1]=scanner.nextInt();
+            if(scanner.hasNextInt()){
+                coordinates[0]=scanner.nextInt();
+            }
+            else{
+                setShipCoordinates();
+            }
 
             if(coordinates[0] >= 10 || coordinates[1] >= 10){
                 System.out.println("Invalid Choice");
-                getCoordinates();
+                setShipCoordinates();
             }
         }
         catch(Exception e){
-            System.out.println("Invalid Choice");
-            getCoordinates();
+            System.out.println("Invalid Choice" + e);
+            setShipCoordinates();
         }
 
         return coordinates;
@@ -98,17 +111,15 @@ public class GameBoard{
                 return placement;
             }
             else{
-                System.out.println("Invalid Choice:else");
+                System.out.println("Invalid Choice");
                 getPlacement();
             }
         }
         catch(Exception e){
-            System.out.println("Invalid Choice" + e);
+            System.out.println("Invalid Choice");
             getPlacement();
         }
-
-        placement = "";
-        return placement;
+        return null;
     }
 
     public String[][] getBoard(){

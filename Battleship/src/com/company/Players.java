@@ -58,12 +58,12 @@ public class Players{
                 player.setHits(player.getHits()+1);
                 playerBoardTemp[coordinates[0]][coordinates[1]] = "H ";
                 opponentBoardTemp[coordinates[0]][coordinates[1]] = "H ";
+
                 checkWinner(player);
             }
             else {
                 System.out.println("MISS");
                 playerBoardTemp[coordinates[0]][coordinates[1]] = "M ";
-
             }
 
             boardView.setBoard(playerBoardTemp);
@@ -75,6 +75,7 @@ public class Players{
         }
 
         boardView.setBoard(playerBoardTemp);
+        boardView.printBoard();
         return opponentBoardTemp;
     }
 
