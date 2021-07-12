@@ -10,7 +10,8 @@ public class Main {
         while(true) {
             land.printBoard();
             humans = land.playerMove(land.userMovement(), humans);
-            humans = land.goblinMove(humans);
+            //---under construction---
+            //humans = land.goblinMove(humans);
         }
 
     }
