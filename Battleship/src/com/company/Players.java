@@ -53,15 +53,16 @@ public class Players{
             System.out.println("Please enter y coordinate:");
             coordinates[1]=scan.nextInt();
 
-            if(opponentBoardTemp[coordinates[0]][coordinates[1]] != "~ "){
+            if(opponentBoardTemp[coordinates[0]][coordinates[1]] == "H " || opponentBoardTemp[coordinates[0]][coordinates[1]] == "M "){
+                System.out.println("Already picked. turn lost.");
+            }else if(opponentBoardTemp[coordinates[0]][coordinates[1]] != "~ "){
                 System.out.println("HIT");
                 player.setHits(player.getHits()+1);
                 playerBoardTemp[coordinates[0]][coordinates[1]] = "H ";
                 opponentBoardTemp[coordinates[0]][coordinates[1]] = "H ";
 
                 checkWinner(player);
-            }
-            else {
+            }else {
                 System.out.println("MISS");
                 playerBoardTemp[coordinates[0]][coordinates[1]] = "M ";
             }
