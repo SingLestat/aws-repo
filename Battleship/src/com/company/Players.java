@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class Players{
-    Scanner scan = new Scanner(System.in);
+    static Scanner scan = new Scanner(System.in);
     Carrier carrier = new Carrier();
     Battleship battleship = new Battleship();
     Destroyer destroyer = new Destroyer();
@@ -84,6 +84,49 @@ public class Players{
             System.out.println(player.getPlayerName() + " has won!");
             System.exit(0);
         }
+    }
+
+    public static int[] setShipCoordinates(){
+        int[] coordinates=new int[2];
+        int x=0, y=0;
+        boolean passed = false;
+
+        do{
+            try{
+            System.out.println("Please enter x coordinate:");
+                x=scan.nextInt();
+            System.out.println("Please enter y coordinate:");
+                y=scan.nextInt();
+                passed = true;
+            }catch(Exception e){
+                System.out.println("Invalid Choice");
+                scan.next();
+            }
+        }while (x >= 10 || y >= 10 || x==0 || y==0 ||!passed);
+
+        coordinates[0]=x;
+        coordinates[1]=y;
+
+        return coordinates;
+    }
+    public static String getPlacement(){
+        String placement;
+
+        do {
+            System.out.println("Place horizontally or vertically (h or v)?");
+            if(scan.hasNext("h")){
+                placement = scan.next();
+                return placement;
+            }
+            else if(scan.hasNext("v")){
+                placement = scan.next();
+                return placement;
+            }
+            else{
+                System.out.println("Invalid Choice");
+                scan.next();
+            }
+        }while (true);
     }
 
     public int getHits(){

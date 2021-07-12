@@ -2,6 +2,9 @@ package com.company;
 
 import java.util.Scanner;
 
+import static com.company.Players.getPlacement;
+import static com.company.Players.setShipCoordinates;
+
 public class GameBoard{
     private String[][] board = new String[10][10];
     Scanner scanner = new Scanner(System.in);
@@ -67,59 +70,6 @@ public class GameBoard{
         }
 
         return tempBoard;
-    }
-
-    private int[] setShipCoordinates(){
-        int[] coordinates=new int[2];
-
-        try{
-            System.out.println("Please enter x coordinate:");
-            if(scanner.hasNextInt()){
-                coordinates[1]=scanner.nextInt();
-            }
-            else{
-                setShipCoordinates();
-            }
-            System.out.println("Please enter y coordinate:");
-            if(scanner.hasNextInt()){
-                coordinates[0]=scanner.nextInt();
-            }
-            else{
-                setShipCoordinates();
-            }
-
-            if(coordinates[0] >= 10 || coordinates[1] >= 10){
-                System.out.println("Invalid Choice");
-                setShipCoordinates();
-            }
-        }
-        catch(Exception e){
-            System.out.println("Invalid Choice" + e);
-            setShipCoordinates();
-        }
-
-        return coordinates;
-    }
-
-    private String getPlacement(){
-        String placement;
-
-        try{
-            System.out.println("Place horizontally or vertically (h or v)?");
-            placement=scanner.next();
-            if(placement.equals("h")||placement.equals("v")){
-                return placement;
-            }
-            else{
-                System.out.println("Invalid Choice");
-                getPlacement();
-            }
-        }
-        catch(Exception e){
-            System.out.println("Invalid Choice");
-            getPlacement();
-        }
-        return null;
     }
 
     public String[][] getBoard(){
