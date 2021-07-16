@@ -27,7 +27,7 @@ public class GenWord {
             words.add(word);
         }
         Random rand = new Random();
-        String pickedWord = "";
+        String pickedWord;
 
         pickedWord = words.get(rand.nextInt(words.size() -1));
 

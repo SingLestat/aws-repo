@@ -5,7 +5,7 @@ abstract class Ship{
     private String name;
     private String shipChar;
 
-    public Ship(){};
+    public Ship(){}
 
     abstract int getSize();
     abstract void setSize(int size);

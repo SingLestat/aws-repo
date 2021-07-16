@@ -6,8 +6,6 @@ public class Main {
 	GameBoard playerOneBoard = new GameBoard();
 	GameBoard playerTwoBoard = new GameBoard();
 
-	boolean end = false;
-
 		System.out.println("Player One:");
 		Players playerOne = new Players();
 		playerOne.setShips(playerOne, playerOneBoard);

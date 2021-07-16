@@ -20,13 +20,6 @@ public class Land{
         GenWorld();
     }
 
-    Land(int width,int height,int bounds){
-        boardWidth=width;
-        boardHeight=height;
-        boundsRand=bounds;
-        GenWorld();
-    }
-
     @Override
     public String toString(){
         return "Land{"+
@@ -57,9 +50,9 @@ public class Land{
     }
 
     public void printBoard(){
-        for(int i=0;i<board.length;i++){
-            for(int j=0;j<board[i].length;j++){
-                System.out.print(board[i][j]);
+        for(String[] strings : board){
+            for(String string : strings){
+                System.out.print(string);
             }
             System.out.println();
         }
@@ -77,23 +70,21 @@ public class Land{
     }
 
     //checks if player lands on a encounter.
-    private Humans encounter(String Loc,Humans player){
-        Humans human = player;
+    private void encounter(String Loc,Humans player){
 
         if(Loc.equals(" G") || Loc.equals(" C")){
             Goblins goblin=new Goblins();
-            Combat.attack(human,goblin);
+            Combat.attack(player,goblin);
 
-            if(goblin.getLoot()!=""){
-                human.setInventory(goblin.getLoot());
-                human.showInventory();
+            if(!goblin.getLoot().equals("")){
+                player.setInventory(goblin.getLoot());
+                player.showInventory();
             }
 
         }else if(Loc.equals(" T")){
-            human.setInventory(Treasure.genItem());
+            player.setInventory(Treasure.genItem());
         }
 
-        return human;
     }
 
     public String userMovement(){
@@ -123,27 +114,30 @@ public class Land{
         int tempCol=playerColLoc;
 
         try{
-            if(way.equals("N")){
-                //move C up
-                playerRowLoc-=1;
-            }else if(way.equals("E")){
-                //move C right
-                playerColLoc+=1;
-            }else if(way.equals("S")){
-                //move C down
-                playerRowLoc+=1;
-            }else if(way.equals("W")){
-                //move C left
-                playerColLoc-=1;
-            }else if(way.equals("I")){
-                humans.showInventory();
-                playerMove(userMovement(),humans);
-            }else if(way.equals("C")){
-                System.out.println(humans.toString());
-                playerMove(userMovement(),humans);
+            switch (way) {
+                case "N" ->
+                        //move C up
+                        playerRowLoc-=1;
+                case "E" ->
+                        //move C right
+                        playerColLoc+=1;
+                case "S" ->
+                        //move C down
+                        playerRowLoc+=1;
+                case "W" ->
+                        //move C left
+                        playerColLoc-=1;
+                case "I" -> {
+                    humans.showInventory();
+                    playerMove(userMovement(),humans);
+                }
+                case "C" -> {
+                    System.out.println(humans.toString());
+                    playerMove(userMovement(),humans);
+                }
             }
 
-            humans = encounter(board[playerRowLoc][playerColLoc],humans);
+            encounter(board[playerRowLoc][playerColLoc],humans);
             board[playerRowLoc][playerColLoc]=" C";
             board[tempRow][tempCol]=" -";
             winCheck();
@@ -157,85 +151,12 @@ public class Land{
         return humans;
     }
 
-    public Humans goblinMove(Humans humans){
-        int tempRow;
-        int tempCol;
-        Humans player = humans;
-
-        try{
-            for(int i=0;i<board.length;i++){
-                for(int j=0;j<board[i].length;j++){
-                    if(board[i][j]==" G"){
-                        tempRow=i;
-                        tempCol=j;
-
-                        try{
-                            if(playerRowLoc<i){
-                                if(i-1!=0){
-                                    if(board[i-1][j]==" C"){
-                                        player = encounter(" C", player);
-                                    }
-                                    board[i-1][j]=" G";
-                                    board[tempRow][tempCol]=" -";
-                                }
-                            }
-                        }catch(Exception e){
-
-                        }
-                        try{
-                            if(playerRowLoc>i){
-                                if(i+1>board.length){
-                                    if(board[i+1][j]==" C"){
-                                        player = encounter(" C", player);
-                                    }
-                                    board[i+1][j]=" G";
-                                    board[tempRow][tempCol]=" -";
-                                }
-                            }
-                        }catch(Exception e){
-
-                        }
-                        try{
-                            if(playerColLoc>j){
-                                if(j-1!=0){
-                                    if(board[i][j-1]==" C"){
-                                        player = encounter(" C", player);
-                                    }
-                                    board[i][j-1]=" G";
-                                    board[tempRow][tempCol]=" -";
-                                }
-                            }
-                        }catch(Exception e){
-
-                        }
-                        try{
-                            if(playerColLoc<j){
-                                if(j+1>board[i].length){
-                                    if(board[i][j+1]==" C"){
-                                        player = encounter(" C", player);
-                                    }
-                                    board[i][j+1]=" G";
-                                    board[tempRow][tempCol]=" -";
-                                }
-                            }
-                        }catch(Exception e){
-
-                        }
-                    }
-                }
-            }
-        }catch(IndexOutOfBoundsException exception){
-
-        }
-        return player;
-    }
-
     private void winCheck(){
         int goblinCount=0;
 
-        for(int i=0;i<board.length;i++){
-            for(int j=0;j<board[i].length;j++){
-                if(board[i][j]==" G"){
+        for(String[] strings : board){
+            for(String string : strings){
+                if(string.equals(" G")){
                     goblinCount++;
                 }
             }

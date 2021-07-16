@@ -53,9 +53,9 @@ public class Players{
             System.out.println("Please enter y coordinate:");
             coordinates[1]=scan.nextInt();
 
-            if(opponentBoardTemp[coordinates[0]][coordinates[1]] == "H " || opponentBoardTemp[coordinates[0]][coordinates[1]] == "M "){
+            if(opponentBoardTemp[coordinates[0]][coordinates[1]].equals("H ")||opponentBoardTemp[coordinates[0]][coordinates[1]].equals("M ")){
                 System.out.println("Already picked. turn lost.");
-            }else if(opponentBoardTemp[coordinates[0]][coordinates[1]] != "~ "){
+            }else if(!opponentBoardTemp[coordinates[0]][coordinates[1]].equals("~ ")){
                 System.out.println("HIT");
                 player.setHits(player.getHits()+1);
                 playerBoardTemp[coordinates[0]][coordinates[1]] = "H ";
@@ -81,8 +81,8 @@ public class Players{
     }
 
     private void checkWinner(Players player){
-        if(player.getHits() == 17){
-            System.out.println(player.getPlayerName() + " has won!");
+        if(player.getHits() == 17)
+            {System.out.println(player.getPlayerName() + " has won!");
             System.exit(0);
         }
     }

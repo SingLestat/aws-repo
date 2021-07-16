@@ -23,8 +23,7 @@ public class Main {
         System.out.println("Welcome to 3x3 Tic Tac Toe.");
         printBoard();
 
-        System.out.println(
-                "O will play first.");
+        System.out.println("O will play first.");
 
         while (winner == null) {
 

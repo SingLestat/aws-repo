@@ -1,14 +1,13 @@
 package com.company;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Goblins {
     private int health;
-    private int str;
-    private int def;
-    private String name;
-    private String loot = "";
+    private final int str;
+    private final int def;
+    private final String name;
+    private final String loot = "";
 
     Random rand = new Random();
 
@@ -16,18 +15,6 @@ public class Goblins {
         health = rand.nextInt(50);
         str = rand.nextInt(5);
         def = rand.nextInt(5);
-        name = GenWord.getWord();
-
-        if (rand.nextInt(5) == 4){
-            loot.equals(Treasure.genItem());
-        }
-    }
-
-    //For testing and Bosses
-    public Goblins(int health, int str, int def){
-        this.health = health;
-        this.str = str;
-        this.def = def;
         name = GenWord.getWord();
 
         if (rand.nextInt(5) == 4){

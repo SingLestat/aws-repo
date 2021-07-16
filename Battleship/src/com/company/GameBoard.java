@@ -1,13 +1,10 @@
 package com.company;
 
-import java.util.Scanner;
-
 import static com.company.Players.getPlacement;
 import static com.company.Players.setShipCoordinates;
 
 public class GameBoard{
     private String[][] board = new String[10][10];
-    Scanner scanner = new Scanner(System.in);
 
     public GameBoard(){
         makeBoard();
@@ -24,18 +21,17 @@ public class GameBoard{
     }
 
     public void printBoard(){
-        for(int i=0;i<board.length;i++){
-            for(int j=0;j<board[i].length;j++){
-                System.out.print(board[i][j]);
+        for(String[] strings : board){
+            for(String string : strings){
+                System.out.print(string);
             }
             System.out.println();
         }
     }
 //setting ship
-    public Object setShip(GameBoard gameBoard,Ship ship){
+    public void setShip(GameBoard gameBoard,Ship ship){
         String placement;
-        int[] coordinates = {0,0};
-        GameBoard tempBoard = gameBoard;
+        int[] coordinates;
 
         System.out.println("Enter the coordinates for the " + ship.getName() + ":");
         coordinates = setShipCoordinates();
@@ -44,23 +40,23 @@ public class GameBoard{
         try{
             if(placement.equals("h")){
                 for(int col=coordinates[1]; col < ship.getSize()+coordinates[1]; col++){
-                    if(tempBoard.board[coordinates[0]][col] != "~ "){
+                    if(!gameBoard.board[coordinates[0]][col].equals("~ ")){
                         System.out.println("Invalid Choice h");
                         setShip(gameBoard, ship);
                         break;
                     }else{
-                        tempBoard.board[coordinates[0]][col]=ship.getShipChar();
+                        gameBoard.board[coordinates[0]][col]=ship.getShipChar();
                     }
                 }
             }
             if(placement.equals("v")){
                 for(int row=coordinates[0]; row < ship.getSize()+coordinates[0]; row++){
-                    if(tempBoard.board[row][coordinates[1]] != "~ "){
+                    if(!gameBoard.board[row][coordinates[1]].equals("~ ")){
                         System.out.println("Invalid Choice v");
                         setShip(gameBoard, ship);
                         break;
                     }else{
-                        tempBoard.board[row][coordinates[1]]=ship.getShipChar();
+                        gameBoard.board[row][coordinates[1]]=ship.getShipChar();
                     }
                 }
             }
@@ -69,7 +65,6 @@ public class GameBoard{
             setShip(gameBoard, ship);
         }
 
-        return tempBoard;
     }
 
     public String[][] getBoard(){

@@ -1,18 +1,16 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Humans {
-    private ArrayList<String> inventory = new ArrayList<>();
+    private final ArrayList<String> inventory = new ArrayList<>();
     private int health;
     private int str;
     private int def;
     private int speed;
-    private String name;
+    private final String name;
 
-    Random rand = new Random();
     static Scanner scanner = new Scanner(System.in);
 
     Humans(String name){
@@ -66,24 +64,18 @@ public class Humans {
 
     public void setInventory(String loot) {
         inventory.add(loot);
-        if (loot.equals("Potion")){
-            setHealth(getHealth() + 10);
-        }
-        else if(loot.equals("+1 Sword")){
-            setStr(getStr()+1);
-        }
-        else if(loot.equals("+1 Shield")){
-            setDef(getDef()+1);
-        }
-        else if(loot.equals("+1 Shoes")){
-            setSpeed(getSpeed()+1);
+        switch (loot) {
+            case "Potion" -> setHealth(getHealth()+10);
+            case "+1 Sword" -> setStr(getStr()+1);
+            case "+1 Shield" -> setDef(getDef()+1);
+            case "+1 Shoes" -> setSpeed(getSpeed()+1);
         }
     }
 
     public void showInventory(){
         System.out.println("|-Inventory-|");
-        for(int c = 0; c < inventory.size(); c++){
-            System.out.println("-" + inventory.get(c));
+        for(String s : inventory){
+            System.out.println("-"+s);
         }
     }
 
